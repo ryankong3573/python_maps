@@ -5,9 +5,15 @@ def get_neighbours(node):
     pass
 
 def reconstruct_path(came_from,start,goal):
-    pass
+    path = [goal]
+    current = goal
 
-    
+    while current != start:
+        current = came_from[current]
+        path.append(current)
+        
+    path.reverse()
+    return path, len(path)
 
 def bfs_algorithm(grid, start, goal):
     frontier = deque()
@@ -29,7 +35,7 @@ def bfs_algorithm(grid, start, goal):
                 visited.append(x)
                 frontier.append(x)
 
-    path = reconstruct_path(came_from, start, goal)
+    path, path_length = reconstruct_path(came_from, start, goal)
 
     return path, nodes_expanded
 
