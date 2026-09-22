@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 from collections import deque
 
-def get_neighbours(node):
-    pass
+def get_neighbours(node,graph):
+    return graph.get(node, [])
 
 def reconstruct_path(came_from,start,goal):
     path = [goal]
@@ -15,7 +15,7 @@ def reconstruct_path(came_from,start,goal):
     path.reverse()
     return path, len(path)
 
-def bfs_algorithm(grid, start, goal):
+def bfs_algorithm(graph, start, goal):
     frontier = deque()
     frontier.append(start)
     came_from = {start:None}
@@ -28,7 +28,7 @@ def bfs_algorithm(grid, start, goal):
         if current == goal:
             break
 
-        for x in get_neighbours(current):
+        for x in get_neighbours(graph,current):
             if x not in visited:
                 nodes_expanded += 1
                 came_from[x] = current
@@ -37,6 +37,6 @@ def bfs_algorithm(grid, start, goal):
 
     path, path_length = reconstruct_path(came_from, start, goal)
 
-    return path, nodes_expanded
+    return path, path_length, nodes_expanded
 
     
